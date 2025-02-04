@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Monitoring Dashboard</title>
+    <style>
+        /* Unified and Enhanced CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column; /* Enable footer to stick to the bottom */
+            min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+        }
+
+        header {
+            background-color: #0075c9;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        .logo-left, .logo-right {
+            max-height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-left img, .logo-right img {
+            max-height: 100%;
+            max-width: 100px;
+            vertical-align: middle;
+        }
+
+        .top-nav {
+            background-color: #00509E;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .top-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .top-nav ul li {
+            margin: 0 20px;
+        }
+
+        .top-nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .top-nav ul li a:hover {
+            color: #ffcc00;
+        }
+
+        .main-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1; /* Allows main to grow and push footer down */
+        }
+
+        .section {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .section h2 {
+            color: #003366;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .section-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #0075c9;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+            font-size: 14px;
+            margin-top: auto; /* Stick footer to the bottom */
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            text-align: left; /* Align text in each section */
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-section p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        .social-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .social-links li {
+            margin-bottom: 10px;
+        }
+
+        .social-links li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links li a:hover {
+            color: #007BFF;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 10px;
+            background-color: #222;
+            margin-top: 20px;
+            color: #ccc;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Adjusted footer image size and alignment */
+        .footer-logo img {
+            max-width: 200px; /* Or adjust as desired */
+            display: block;
+            margin: 0 auto; /* Center the logo */
+        }
+        @media screen and (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .logo-left, .logo-right {
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .top-nav ul {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .top-nav ul li {
+                margin: 5px 0;
+            }
+           .footer-content {
+            flex-direction: column; /* Stack footer sections on smaller screens */
+            align-items: center; /* Center footer items */
+           }
+           .footer-section {
+               text-align:center;
+           }
+        }
+
+        .image-slider {
+            position: relative;
+            max-width: 100%; /* جعل العرض مرن */
+            height: 200px; /* تحديد ارتفاع موحد لجميع الصور */
+            object-fit: cover; /* الحفاظ على نسبة العرض إلى الارتفاع */
+            overflow: hidden; /* إخفاء الصور الزائدة */
+        }
+
+        .slides {
+            display: flex; /* استخدام Flexbox لتسهيل الترتيب */
+            transition: transform 0.5s ease; /* إضافة تأثير انتقال سلس */
+        }
+
+        .slider-image {
+            width: 100%;
+            border-radius: 8px;
+            flex: 0 0 100%; /* كل صورة تأخذ عرض 100% */
+            height: 200px; /* تحديد ارتفاع موحد لجميع الصور */
+            object-fit: cover; /* الحفاظ على نسبة العرض إلى الارتفاع */
+            
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 10; /* تأكد من أن الأزرار فوق الصور */
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        button {
+            background-color: #0075c9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00509E;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-left">
+            <img src="logo0.png" alt="Company Logo">
+        </div>
+        <h1>Sensor Monitoring</h1>
+        <div class="logo-right">
+            <img src="télécharger (1).png" alt="Another Logo">
+        </div>
+    </header>
+    
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#sensors">Sensors</a></li>
+            <li><a href="#alerts">Alerts</a></li>
+            <li><a href="#reports">Reports</a></li>
+            <li><a href="#settings">contact us</a></li>
+        </ul>
+    </nav>
+    
+    <div class="image-slider">
+        <div class="slides">
+            <img src="lefficacite-energetique-e1723717700488.png" alt="Image 1" class="slider-image">
+            <img src="DJI_0282-scaled.jpg" alt="Image 2" class="slider-image" style="display:none;">
+            <img src="P-A-P-3-e1719917309700.png" alt="Image 3" class="slider-image" style="display:none;">
+        </div>
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <main class="main-content">
+        <section id="dashboard" class="section">
+            <h2>Real-time Sensor Data</h2>
+            <img src="solution (1)(1)(1).png" alt="Dashboard Overview" class="section-image">
+            <p>Visualize and analyze real-time data from your sensor network. Monitor key metrics and identify potential issues early.</p>
+        </section>
+
+        <section id="sensors" class="section">
+            <h2>Sensor Status</h2>
+            <img src="solution (1).png" alt="Sensors Data" class="section-image">
+            <p>Quickly view the status of each sensor in your network. Identify sensors that are offline or reporting values outside of normal ranges.</p>
+        </section>
+
+        <section id="alerts" class="section">
+            <h2>Critical Alerts</h2>
+            <img src="téléchargement.jpg" alt="Alerts Section" class="section-image">
+            <p>Receive immediate notifications for critical events, allowing you to take swift action to prevent problems.</p>
+        </section>
+
+        <section id="reports" class="section">
+            <h2>Historical Reports</h2>
+            <img src="lefficacite-energetique-e1723717700488.png" alt="Reports Section" class="section-image">
+            <p>Generate and download detailed reports on sensor data for compliance, analysis, and long-term trend identification.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div id="settings"" class="footer-content" style="background-color: #0075c9; color: white; padding: 20px; display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <div class="footer-section" style="flex: 1; min-width: 200px; margin: 10px; text-align: center;">
+                <img src="logo0.png" alt="Company Logo" style="max-width: 150px; display: block; margin: 0 auto 10px;">
+                <img src="logo_png-white.png" alt="Company Logo" style="max-width: 150px; display: block; margin: 0 auto 10px;">
+            </div>
+
+            <div class="footer-section" style="flex: 1; min-width: 200px; margin: 10px;">
+                <h3>Nos Solutions</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="#" style="color: white;">Contrôle à distance</a></li>
+                    <li><a href="#" style="color: white;">Détection en temps réel</a></li>
+                    <li><a href="#" style="color: white;">Localisation des fuites avec une grande précision</a></li>
+                </ul>
+                <h3>Liens utiles</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="#" style="color: white;">Accueil</a></li>
+                    <li><a href="#" style="color: white;">À propos de nous</a></li>
+                    <li><a href="#" style="color: white;">Solutions</a></li>
+                    <li><a href="#" style="color: white;">Partenaires</a></li>
+                    <li><a href="#" style="color: white;">Press</a></li>
+                    <li><a href="#" style="color: white;">Projets</a></li>
+                    <li><a href="#" style="color: white;">Blog</a></li>
+                    <li><a href="#" style="color: white;">Tarifs</a></li>
+                    <li><a href="#" style="color: white;">Contactez-Nous</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section" style="flex: 1; min-width: 200px; margin: 10px;">
+                <h3>Nos Réseaux Sociaux</h3>
+                <p>Pour ne manquer aucune actualité, suivez-nous sur nos réseaux sociaux.</p>
+                <ul class="social-links" style="list-style: none; padding: 0;">
+                    <li><a href="#" style="color: white;">Twitter</a></li>
+                    <li><a href="#" style="color: white;">Facebook</a></li>
+                    <li><a href="#" style="color: white;">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom" style="text-align: center; padding: 10px; background-color: #00509E; color: #ccc;">
+            <p>© Copyright WEDTECT. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-image');
+
+        function changeSlide(direction) {
+            slides[currentSlide].style.display = 'none';
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            slides[currentSlide].style.display = 'block';
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(() => changeSlide(1), 5000);
+    </script>
+</body>
+</html>

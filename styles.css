@@ -1,0 +1,209 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column; /* Enable footer to stick to the bottom */
+    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+}
+
+header {
+    background-color: #003366;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 24px;
+    flex-grow: 1;
+}
+
+.logo-left, .logo-right {
+    max-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-left img, .logo-right img {
+    max-height: 100%;
+    max-width: 100px;
+    vertical-align: middle;
+}
+
+.top-nav {
+    background-color: #00509E;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.top-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.top-nav ul li {
+    margin: 0 15px;
+}
+
+.top-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.top-nav ul li a:hover {
+    color: #7EBEC5;
+}
+
+.main-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Allows main to grow and push footer down */
+}
+
+.section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+}
+
+.section h2 {
+    color: #003366;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.section p {
+    font-size: 16px;
+    color: #666;
+}
+
+.section-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Styling */
+footer {
+    background-color: #0075c9;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+    font-size: 14px;
+    margin-top: auto; /* Stick footer to the bottom */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    text-align: left; /* Align text in each section */
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.footer-section p {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+}
+
+.social-links li {
+    margin-bottom: 10px;
+}
+
+.social-links li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-links li a:hover {
+    color: #007BFF;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 10px;
+    background-color: #222;
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* Adjusted footer image size and alignment */
+.footer-logo img {
+    max-width: 200px; /* Or adjust as desired */
+    display: block;
+    margin: 0 auto; /* Center the logo */
+}
+@media screen and (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .logo-left, .logo-right {
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .top-nav ul {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .top-nav ul li {
+        margin: 5px 0;
+    }
+   .footer-content {
+    flex-direction: column; /* Stack footer sections on smaller screens */
+    align-items: center; /* Center footer items */
+   }
+   .footer-section {
+       text-align:center;
+   }
+   
+}
